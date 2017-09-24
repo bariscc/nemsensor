@@ -1,24 +1,24 @@
-int analogPin = A0;   // nemsensor analog output
-int val = 0;        // variable to store the value read
-int setVal = 15;      // TARGET RATE
+int analogPin = A0;      // nemsensor analog output
+int current_mo = 0;      // variable to store the value read
+int target_mo = 15;      // target moisture
 
 void setup()
 {
-  pinMode(7, OUTPUT); // relay digital output  
-  Serial.begin(9600); // debug
+  pinMode(7, OUTPUT);    // relay digital output  
+  Serial.begin(9600);    // debug
 }
 
 void loop()
 {
-  val = analogRead(analogPin);
-  float rate = 100 - ((float)val / 1023 * 100);
+  current_mo = analogRead(analogPin);
+  current_mo = map(current_mo,1023,0,0,100);
   
-  Serial.print("toprak nemi: %");
-  Serial.println((int)rate);
+  Serial.print("mevcut nem: %");
+  Serial.println(current_mo);
   Serial.print("hedef nem: %");
-  Serial.println(setVal);
+  Serial.println(target_mo);
   
-  if(rate > setVal) {
+  if(current_mo > target_mo) {
     digitalWrite(7,LOW);
     Serial.println("Sulama Kapalı");
   } else {
