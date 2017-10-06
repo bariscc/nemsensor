@@ -1,7 +1,6 @@
 #include <LiquidCrystal.h>
 #include <EEPROM.h>
 #include <DS1302.h>
-#include "date_builder.h"
 
 void updateTime(int force = 0);
 void updateStatus(int force = 0);
@@ -19,8 +18,6 @@ void checkMo(int force = 0);
 #define left    3
 #define select  4
 #define none    5
-
-
 
 // pins
 const int sensorPin = A5;
@@ -82,11 +79,18 @@ void setup()
   digitalWrite(relayPin,HIGH);
   analogWrite(lcdBacklight, backlight);
   //Serial.begin(9600);
-  //setTime();
   lcd.begin(16, 2);
-  lcd.print("  NEMSENSOR V1  ");
-  delay(2500);
   checkMo(1);
+}
+
+void welcome() {
+  lcd.print("  NEMSENSOR V1  ");
+  lcd.setCursor(0,1);
+  for(int i = 0; i < 16; i++) {
+    lcd.print(".");
+    delay(100);    
+  }  
+  delay(400);  
 }
 
 void loop()
