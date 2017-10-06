@@ -80,6 +80,7 @@ void setup()
   analogWrite(lcdBacklight, backlight);
   //Serial.begin(9600);
   lcd.begin(16, 2);
+  welcome();
   checkMo(1);
 }
 
