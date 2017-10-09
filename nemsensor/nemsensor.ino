@@ -488,15 +488,22 @@ boolean isTime()
 {
   Serial.println("isTime()");
   int current_hr = rtc.time().hr;
-  if(start_hr < end_hr)
-  {
-    if(current_hr >= start_hr && current_hr < end_hr) return true;
-    return false;
+  
+  if(end_hr > start_hr) {
+    if(current_hr >= start_hr && current_hr < end_hr) {
+      return true;
+    } else {
+      return false;
+    }
   }
-  else
-  {
-    if(current_hr < end_hr && current_hr <= start_hr) return true;
-    return false;
+  else {
+    if(current_hr >= start_hr) {
+      return true;
+    } else if (current_hr < end_hr) {
+      return true; 
+    } else {
+      return false;
+    }
   }
 }
 
